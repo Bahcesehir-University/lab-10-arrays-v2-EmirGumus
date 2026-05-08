@@ -36,6 +36,9 @@ void warmup_printNumbers()
 {
     cout << "\n--- Warm-up 1-A: Print 1 to 10 ---\n";
     // TODO: write a for-loop that prints 1 2 3 4 5 6 7 8 9 10
+    for(int i=1; i<=10; i++){
+        cout << i << endl;
+    }
 }
 
 // Exercise 1-B
@@ -44,6 +47,13 @@ void warmup_sumFive()
 {
     cout << "\n--- Warm-up 1-B: Sum of 5 numbers ---\n";
     int sum = 0;
+    int num;
+    for(int i=0; i<5; i++){
+        cout << "Enter number:  " << endl;
+        cin >> num;
+        sum += num;
+    }
+    cout << "Sum =  " << sum << endl;
     // TODO: declare an integer variable 'num'
     // TODO: loop 5 times: read num with cin, then add it to sum
     // TODO: print sum
@@ -83,19 +93,26 @@ void concepts_demo()
     cout << "Last score  : " << scores[4] << "\n";
 
     // --- YOUR TURN ---
-
+    int temps[7] = {22, 19, 25, 30, 28, 17, 21};
     // TODO 2-A: declare an integer array called 'temps' of size 7
     //           and initialize it with: 22, 19, 25, 30, 28, 17, 21
 
     // TODO 2-B: print all elements of 'temps' using a for-loop
     cout << "Temperatures: ";
     // your loop here
-
+    for(int i=0; i<7; i++){
+        cout << temps[i] << "  ";
+    }
     cout << "\n";
 
     // TODO 2-C: change the 4th element (index 3) of 'temps' to 35
     //           then print it to verify
-
+    temps[3] = 35;
+    cout << "temps[3] is now 35" << endl;
+    for(int i=0; i<7; i++){
+        cout << temps[i] << "  ";
+    }
+    cout << endl;
 }
 
 // ============================================================
@@ -116,7 +133,18 @@ void exercise_fillArray()
     const int MAX = 20;
     int grades[MAX];
     int n = 0;
-
+    cin >>n ;
+    
+    while(n<1 || n>20){
+        cin>>n;
+    }
+    
+    int grade;
+    
+    for(int i=n; i>0; i--){
+        cin >> grade;
+        grades[i] = grade;
+    }
     // TODO: ask the user to enter n (1 ≤ n ≤ 20)
     //       keep asking until n is in range
 
@@ -125,6 +153,9 @@ void exercise_fillArray()
     // TODO: print all n grades on one line
     cout << "You entered: ";
     // your loop here
+    for(int i=n; i>0; i--){
+        cout << grades[i] << "  ";
+    }
     cout << "\n";
 }
 
@@ -148,18 +179,29 @@ void exercise_statistics()
     // TODO: compute the sum using a loop
     int sum = 0;
     // your loop here
-
+    for(int i=0; i<size; i++){
+        sum += data[i];
+    }
     // TODO: compute the average (cast to double)
     double avg = 0.0;
     // your calculation here
-
+    avg = double(sum) / double(size);
     // TODO: find minimum — start with data[0] and update in a loop
     int minVal = data[0];
     // your loop here
-
+    for(int i=0; i<size; i++){
+        if(minVal > data[i]){
+            minVal = data[i];
+        }
+    }
     // TODO: find maximum — start with data[0] and update in a loop
     int maxVal = data[0];
     // your loop here
+    for(int i=0; i<size; i++){
+        if(maxVal < data[i]){
+            maxVal = data[i];
+        }
+    }
 
     cout << "Sum     : " << sum    << "\n";
     cout << "Average : " << avg    << "\n";
@@ -183,6 +225,11 @@ void exercise_statistics()
 //   Return    : int  (index of target, or -1)
 int linearSearch(int arr[], int size, int target)
 {
+    for(int i =0; i<size; i++){
+        if(arr[i]==target){
+            return i;
+        }
+    }
     // TODO: loop through arr; if arr[i] == target return i
     // TODO: if you finish the loop without finding it, return -1
     return -1; // replace this placeholder
@@ -193,11 +240,22 @@ void exercise_search()
     cout << "\n--- Exercise 3-C: Linear Search ---\n";
 
     int values[10] = {5, 12, 8, 3, 27, 19, 6, 44, 31, 7};
-
+    
+    if(linearSearch(values, 10, 27)!=-1){
+        cout << "27 found at index " << linearSearch(values, 10, 27) << endl;
+    }else{
+        cout << "27 not found" << endl;
+    }
+    
     // TODO: call linearSearch for target = 27 and print the result
     //       e.g.  "27 found at index 4"  or  "27 not found"
 
     // TODO: call linearSearch for target = 99 and print the result
+    if(linearSearch(values, 10, 99)!=-1){
+        cout << "99 found at index " << linearSearch(values, 10, 99) << endl;
+    }else{
+        cout << "99 not found" << endl;
+    }
 }
 
 // ----------------------------------------------------------
@@ -220,7 +278,11 @@ void exercise_countChar()
 
     int count = 0;
     // your loop here
-
+    for(int i=0; i<len; i++){
+        if(text[i] == 'a' || text[i] == 'A'){
+            count++;
+        }
+    }
     cout << "Letter 'a'/'A' appears " << count << " times.\n";
 }
 
@@ -244,9 +306,22 @@ void exercise_bubbleSort()
 
     // TODO: implement the two-loop bubble sort described above
     //       use a temporary variable for the swap
-
+    int temp;
+    for(int j=size-1; j>0; j--){
+        for(int i=1; i<size; i++){
+            if(arr[i-1] > arr[i]){
+                temp = arr[i];
+                arr[i] = arr[i-1];
+                arr[i-1] = temp;
+            }
+        }
+    }
+    
     // TODO: print the sorted array
     cout << "Sorted: ";
+    for(int i=0; i<size; i++){
+        cout << arr[i] << "  ";
+    }
     // your loop here
     cout << "\n";
 }
@@ -273,7 +348,13 @@ void challenge_reverse()
 
     int arr[7] = {10, 20, 30, 40, 50, 60, 70};
     int size   = 7;
+    int temp ;
 
+    for(int i=0; i<size/2; i++){
+        temp = arr[i];
+        arr[i] = arr[size-i-1];
+        arr[size-i-1] = temp;
+    }
     // TODO: use a loop that swaps arr[i] with arr[size-1-i]
     //       stop when i reaches the midpoint (size/2)
 
@@ -306,6 +387,18 @@ void challenge_removeDuplicates()
     int unique[10];   // result array (max same size as original)
     int uniqueCount  = 0;
 
+    for(int i=0; i<origSize; i++){
+        for(int j=0; j<origSize; i++){
+            if(i!=j && original[i] == original[j]){
+                break;
+            }
+            if(j==origSize-1){
+                unique[i] = original[i];
+                uniqueCount++;
+            }
+        }
+    }
+    
     // TODO: loop through original[]; for each element check
     //       whether it already exists in unique[0..uniqueCount-1]
     //       if NOT found, add it to unique[] and increment uniqueCount
